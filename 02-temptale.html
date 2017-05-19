@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>template模板引擎</title>
+    <link href="css/base.css" rel="stylesheet"/>
+
+<link href="css/stylemain.css" rel="stylesheet"/>
+</head>
+<body>
+ <div class="v2-container">
+   
+
+ </div>
+
+  <script type="text/javascript" src="js/jquery.min-1.11.0.js"></script>
+  <script src="js/template-native.js"></script>
+  <script>
+    $(function(){
+        $.ajax({
+          url:'http://192.168.5.151:8008/Org/GetOrgList/',
+          type:'get',
+          dataType:'json',
+          success:function(result){
+           var  result=result.Data;
+           console.log(result);
+           result=JSON.parse(result);
+           var Data={
+                  list:result
+                };
+            console.log(Data);
+             var html=template("tmp",Data);
+             $(".v2-container").html(html);
+           
+            
+        
+   }
+  });
+      });
+  </script>
+<script type="text/template" id="tmp">
+  <% for(var i=0;i<list.length;i++) {%>
+    <div class="ovh-comm ky-main-list">
+      <div class="fl wid760 ovh-comm left-img pr10">
+        <div class="fl wid150 pt10">
+           <a href="#" target="_blank">
+             <img src="<%= list[i].LogoUrl %>">
+           </a>
+        </div>
+        <div class="fr wid650">
+          <div class="ky-list-tit">
+              <span class="fr c69f">
+                <a href="#" target="_blank">查看全部21个课程&gt;&gt;</a>
+              </span>
+              <a href="#" target="_blank"><%= list[i].Name%></a>
+              <span> --（共<b>12314</b>人关注，<b>220</b>人报名）</span>
+          </div>
+          <div class="ky-tag-main">
+              <i class="tag-main tag-1">成人口语</i>
+              <i class="tag-main tag-1">零基础英语</i>
+              <i class="tag-main tag-1">四/六级</i>
+              <i class="tag-main tag-1">职场英语</i>
+              <i class="tag-main tag-1">行业英语</i>
+              <i class="tag-main tag-1">商务英语</i>
+              <i class="tag-main tag-1">BEC</i>
+              <i class="tag-main tag-1">托业</i>
+              <i class="tag-main tag-2">青少英语（11-18岁）</i>
+              <i class="tag-main tag-3">托福</i>
+              <i class="tag-main tag-3">雅思</i>
+              <i class="tag-main tag-3">ACT</i>
+              <i class="tag-main tag-3">SAT</i>
+              <i class="tag-main tag-3">SSAT</i>
+              <i class="tag-main tag-3">GRE</i>
+              <i class="tag-main tag-3">GMAT</i>
+          </div>
+          <div class="ky-address-tit">
+            <span class="fr">
+               <a href="#" target="_blank">查看全部校区&gt;&gt;</a>
+            </span>校区地址
+            <i>（共<%= list[i].SchoolNumber %>个）</i>
+          </div>
+          <div class="ky-add-con"><%= list[i].School%></div>
+        </div>
+      </div>
+      <div class="fr wid330">
+         <div class="kyeva tc">
+            <div class="mt20">
+              <input placeholder="手机号" class="inp-style-1" type="text">
+            </div>
+            <div class="mt20">
+              <input placeholder="验证码" class="inp-style-2" type="text">
+              <input type="submit" class="btn-style-1" value="获取验证码">
+            </div>
+            <div class="mt20">
+              <a href="#" class="btn-style-2">获取报价</a>
+            </div>
+         </div>
+      </div>
+  </div>
+  <% } %>
+
+</script>
+</body>
+</html>
